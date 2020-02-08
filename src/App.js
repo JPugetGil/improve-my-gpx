@@ -1,8 +1,12 @@
-import React, { Suspense } from 'react';
+import React, {Suspense} from 'react';
 import './App.css';
 import 'react-bulma-components/dist/react-bulma-components.min.css';
 import routes from './routes';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
+import {library} from '@fortawesome/fontawesome-svg-core'
+import icons from './fontLibrary';
+
+library.add(...icons);
 
 function App() {
 	return (
