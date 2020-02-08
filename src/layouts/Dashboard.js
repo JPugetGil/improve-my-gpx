@@ -3,8 +3,6 @@ import {Container, Notification} from "react-bulma-components";
 import {withTranslation} from "react-i18next";
 
 function Dashboard({t}) {
-    const name = "";
-
     return (
         <Fragment>
             <Container breakpoint="fullhd">
