@@ -1,4 +1,10 @@
 import L from 'leaflet';
+import markers from '../Models/Pins'
+import {Modes as Mo} from './Modes'
+import {Maths as Ma} from './Maths'
+import {Tools as To} from './Tools'
+
+const axios = require('axios');
 
 export class Tools {
     static createGeoData() {
@@ -34,7 +40,7 @@ export class Tools {
     static getPosition(geoData) {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((function (position) {
-                var marker = L.marker([position.coords.latitude, position.coords.longitude], {icon: purpleMarker}).addTo(geoData.map);
+                var marker = L.marker([position.coords.latitude, position.coords.longitude], {icon: markers.purpleMarker}).addTo(geoData.map);
                 marker.bindPopup("Ma position :<br> Latitude : " + position.coords.latitude + ',<br>Longitude ' + position.coords.longitude).openPopup();
             }));
         } else {
@@ -58,21 +64,21 @@ export class Tools {
     }
 
     static addPath(geoData, file, name = "") {
-        return Promise.resolve($.ajax(file)).then(gpx => {
+        return Promise.resolve(axios.get(file)).then(gpx => {
             let index = geoData.paths.length;
             let indexFile = file.lastIndexOf("/");
             let filename = file.substr(indexFile + 1);
             if (typeof (gpx) === "object") {
                 gpx = new XMLSerializer().serializeToString(gpx);
             }
-            geoData.paths[index] = toGeoJSON.gpx((new DOMParser()).parseFromString(gpx, 'text/xml'));
+            geoData.paths[index] = Ma.toGeoJSON.gpx((new DOMParser()).parseFromString(gpx, 'text/xml'));
             geoData.paths[index].file = (name === "" ? filename : name);
             geoData.paths[index].shown = true;
             geoData.focus = index;
-            savePaths(geoData);
+            Mo.savePaths(geoData);
             geoData.savedState.upload = true;
-            checkElevation(geoData);
-            infoTrace(geoData);
+            Ma.checkElevation(geoData);
+            Ma.infoTrace(geoData);
             return geoData;
         });
     }
@@ -101,7 +107,7 @@ export class Tools {
                     if (((i === geoData.paths[j].features[0].geometry.coordinates.length - 1) || (i % 50 === 0) && (i !== 0))) {
                         listCoord = listCoord.substring(0, listCoord.length - 1);
                         let link = "https://dev.virtualearth.net/REST/v1/Elevation/List?points=" + listCoord + "&key=AuhAPaqRM0jgPmFRoNzjuOoB8te9aven3EH_L6sj2pFjDSxyvJ796hueyskwz4Aa";
-                        tabPromises.push($.getJSON(link, function (data) {
+                        tabPromises.push(axios.get(link, function (data) {
                         }));
                         listCoord = "";
                     }
@@ -114,7 +120,7 @@ export class Tools {
                         });
                     });
                     return geoData;
-                }).then(generateGraph);
+                }).then(Mo.generateGraph);
             }
 
         }
@@ -125,35 +131,35 @@ export class Tools {
         if (geoData.focus !== undefined) {
             geoData.map.fitBounds(geoData.layers[geoData.focus].getBounds());
         }
-        generateGraph(geoData);
+        Mo.generateGraph(geoData);
         return geoData;
     }
 
-    static reSample(geoData, number){
+    static reSample(geoData, number) {
         number = Number(number);
-        if(Number.isInteger(number) && number > 0 && number < (geoData.paths[geoData.focus].features[0].geometry.coordinates.length-2)){
-            savePaths(geoData);
-            if (typeof(Worker) === undefined) {
+        if (Number.isInteger(number) && number > 0 && number < (geoData.paths[geoData.focus].features[0].geometry.coordinates.length - 2)) {
+            Mo.savePaths(geoData);
+            if (typeof (Worker) === undefined) {
                 let tolerence = 0.00001;
                 let tabDistance = [];
-                let totalDistance = calculateDistance(geoData.paths[geoData.focus]);
-                while(number>0){
+                let totalDistance = Ma.calculateDistance(geoData.paths[geoData.focus]);
+                while (number > 0) {
                     tabDistance = [];
-                    for (let i=0; i<geoData.paths[geoData.focus].features[0].geometry.coordinates.length-2; i++){
-                        tabDistance.push(DistanceBetween2Points(geoData.paths[geoData.focus].features[0].geometry.coordinates[i],geoData.paths[geoData.focus].features[0].geometry.coordinates[i+1]));
+                    for (let i = 0; i < geoData.paths[geoData.focus].features[0].geometry.coordinates.length - 2; i++) {
+                        tabDistance.push(Ma.DistanceBetween2Points(geoData.paths[geoData.focus].features[0].geometry.coordinates[i], geoData.paths[geoData.focus].features[0].geometry.coordinates[i + 1]));
                     }
-                    if(tabDistance.min() < totalDistance*tolerence){
-                        geoData.paths[geoData.focus].features[0].geometry.coordinates.splice(tabDistance.indexOf(tabDistance.min()),1);
+                    if (tabDistance.min() < totalDistance * tolerence) {
+                        geoData.paths[geoData.focus].features[0].geometry.coordinates.splice(tabDistance.indexOf(tabDistance.min()), 1);
                         number--;
                     } else {
                         tolerence += 0.0000002;
                     }
                 }
                 geoData.map.removeLayer(geoData.layers[geoData.focus]);
-                displayPath(geoData, geoData.focus);
+                To.displayPath(geoData, geoData.focus);
                 document.getElementById("tutorialButton").dispatchEvent(new Event("samplingFactor"));
-                generateGraph(geoData);
-                infoTrace(geoData);
+                To.generateGraph(geoData);
+                Mo.infoTrace(geoData);
 
             } else {
                 let w = new Worker("js/resample.js");
@@ -161,16 +167,16 @@ export class Tools {
                     geoData.paths[geoData.focus] = event.data;
                     w.terminate();
                     w = undefined;
-                    redisplayPath(geoData, geoData.focus);
+                    To.redisplayPath(geoData, geoData.focus);
                     document.getElementById("tutorialButton").dispatchEvent(new Event("samplingFactor"));
-                    generateGraph(geoData);
-                    infoTrace(geoData);
+                    To.generateGraph(geoData);
+                    Mo.infoTrace(geoData);
                 }
                 w.postMessage(number);
                 w.postMessage(geoData.paths[geoData.focus]);
             }
         } else {
-            alert("Veuillez mettre un nombre entier supérieur à 0, et compris entre 1 et " + (geoData.paths[geoData.focus].features[0].geometry.coordinates.length-3) + "! SVP.");
+            alert("Veuillez mettre un nombre entier supérieur à 0, et compris entre 1 et " + (geoData.paths[geoData.focus].features[0].geometry.coordinates.length - 3) + "! SVP.");
         }
     }
 
@@ -181,15 +187,15 @@ export class Tools {
     }
 
     static displayPath(geoData, index, display = true) {
-        let polyline = getPolyline(geoData, index);
+        let polyline = To.getPolyline(geoData, index);
 
         geoData.layers[index] = polyline;
         geoData.layersControl.addOverlay(polyline, geoData.paths[index].file);
-        if(display){
+        if (display) {
             geoData.map.addLayer(polyline);
-            setFocusClass(geoData);
+            this.setFocusClass(geoData);
         }
-        setListenersUpdate(geoData)
+        // setListenersUpdate(geoData)
 
         return geoData;
     }
@@ -203,22 +209,22 @@ export class Tools {
 
     static getPolyline(geoData, index) {
         let color;
-        let mean = getElevationMean(geoData);
-        if (mean<600){
+        let mean = Ma.getElevationMean(geoData);
+        if (mean < 600) {
             color = "#0000FF";
-        } else if (mean >= 600 && mean <1200) {
+        } else if (mean >= 600 && mean < 1200) {
             color = "#007FFF";
-        } else if (mean >= 1200 && mean < 1800){
+        } else if (mean >= 1200 && mean < 1800) {
             color = "#00FFFF";
-        } else if (mean >= 1800 && mean < 2400){
+        } else if (mean >= 1800 && mean < 2400) {
             color = "#00FF7F";
-        } else if (mean >= 2400 && mean < 3000){
+        } else if (mean >= 2400 && mean < 3000) {
             color = "#00FF00";
-        } else if (mean >= 3000 && mean < 3600){
+        } else if (mean >= 3000 && mean < 3600) {
             color = "#7FFF00";
-        } else if (mean >= 3600 && mean < 4200){
+        } else if (mean >= 3600 && mean < 4200) {
             color = "#FFFF00";
-        } else if (mean >= 4200 && mean < 4800){
+        } else if (mean >= 4200 && mean < 4800) {
             color = "#FF7F00";
         } else if (mean >= 4800 && mean < 5400) {
             color = "#FF0000";
@@ -238,32 +244,32 @@ export class Tools {
         return L.polyline(latlngs, {color: color});
     }
 
-    static generateGraph(geoData) {
-        if (document.getElementById("toHide").className === "collapse"){
+    /*static generateGraph(geoData) {
+        if (document.getElementById("toHide").className === "collapse") {
             $('#toHide').collapse('toggle');
         }
 
         RGraph.reset(document.getElementById('cvs'));
         if (geoData.focus !== undefined) {
             let w2 = new Worker("js/chart.js");
-            if (geoData.isMobile){
-                document.getElementById("graph").setAttribute("style", "height:"+ ($(document).height() * 1/4) +"px; width: 100%; z-Index: 2; padding-left: 5%");
+            if (geoData.isMobile) {
+                document.getElementById("graph").setAttribute("style", "height:" + ($(document).height() * 1 / 4) + "px; width: 100%; z-Index: 2; padding-left: 5%");
             } else {
-                document.getElementById("graph").setAttribute("style", "height:"+ ($(document).height() * 2/7) +"px; width: 100%; z-Index: 2; padding-left: 5%");
+                document.getElementById("graph").setAttribute("style", "height:" + ($(document).height() * 2 / 7) + "px; width: 100%; z-Index: 2; padding-left: 5%");
             }
 
             w2.onmessage = event => {
                 w2.terminate();
                 w2 = undefined;
                 document.getElementById("cvs").setAttribute("width", $(document).width() / 1.11);
-                document.getElementById("cvs").setAttribute("height", $(document).height()/4);
-                if (newMarker == undefined){
-                    var newMarker = new L.marker([-100,-10000]);
+                document.getElementById("cvs").setAttribute("height", $(document).height() / 4);
+                if (newMarker == undefined) {
+                    var newMarker = new L.marker([-100, -10000]);
                     var lay = new L.layerGroup([newMarker]).addTo(geoData.map);
                 }
 
                 document.getElementById("cvs").addEventListener("mouseout", () => {
-                    newMarker.setLatLng([-100,-10000]);
+                    newMarker.setLatLng([-100, -10000]);
                 });
 
                 var line = new RGraph.Line({
@@ -274,11 +280,11 @@ export class Tools {
                         tooltips: function (event) {
                             let x = geoData.paths[geoData.focus].features[0].geometry.coordinates[event][1];
                             let y = geoData.paths[geoData.focus].features[0].geometry.coordinates[event][0];
-                            newMarker.setLatLng([x,y]);
-                            geoData.map.panTo(new L.LatLng(x,y));
+                            newMarker.setLatLng([x, y]);
+                            geoData.map.panTo(new L.LatLng(x, y));
                         },
                         linewidth: 3,
-                        numxticks: event.data[0].length/10,
+                        numxticks: event.data[0].length / 10,
                         ylabels: true,
                         unitsPost: 'm',
                         crosshairs: true,
@@ -292,24 +298,24 @@ export class Tools {
         }
 
         return geoData;
-    }
+    }*/
 
-    static deleteTrace(geoData, id, conf = true) {
+    /*static deleteTrace(geoData, id, conf = true) {
         if (!conf || confirm("Voulez vous vraiment supprimer ce fichier ?")) {
             geoData.layersControl.removeLayer(geoData.layers[id]);
             geoData.map.removeLayer(geoData.layers[id]);
             geoData.layers.splice(id, 1);
             geoData.paths.splice(id, 1);
             if (geoData.focus === id) {
-                resetFocus(geoData);
-                setFocusClass(geoData);
-                movePOV(geoData);
+                To.resetFocus(geoData);
+                To.setFocusClass(geoData);
+                To.movePOV(geoData);
             } else if (geoData.focus > id) {
                 geoData.focus--;
             }
-            setListenersUpdate(geoData);
+            // setListenersUpdate(geoData);
         }
-    }
+    }*/
 
     static getIndexFile(element) {
         let index = undefined;
@@ -317,7 +323,7 @@ export class Tools {
         let clickables = Array.from(document.querySelectorAll(".leaflet-control-layers-overlays > label > div > *"));
         while (index === undefined && i < clickables.length) {
             if (element._leaflet_id === clickables[i]._leaflet_id) {
-                index = i % 2 === 0 ? i / 2 : (i-1) / 2;
+                index = i % 2 === 0 ? i / 2 : (i - 1) / 2;
             }
             i++;
         }

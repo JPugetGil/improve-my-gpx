@@ -1,5 +1,7 @@
 import {Maths as Ma} from './Maths'
 import L from 'leaflet';
+import {Tools as To} from './Tools'
+const axios = require('axios');
 
 export class Modes {
     // Suppress temporary markers created by modes
@@ -74,9 +76,9 @@ export class Modes {
         this.savePaths(geoData);
         geoData.paths[geoData.focus].features[0].geometry = geoData.layers[geoData.focus].toGeoJSON().geometry;
         let link = "https://dev.virtualearth.net/REST/v1/Elevation/List?points=" + geoData.paths[geoData.focus].features[0].geometry.coordinates[index][1] + "," + geoData.paths[geoData.focus].features[0].geometry.coordinates[index][0] + "&key=AuhAPaqRM0jgPmFRoNzjuOoB8te9aven3EH_L6sj2pFjDSxyvJ796hueyskwz4Aa";
-        $.getJSON(link, function (data) {
+        axios.get(link, function (data) {
             geoData.paths[geoData.focus].features[0].geometry.coordinates[index][2] = data.resourceSets[0].resources[0].elevations[0];
-            generateGraph(geoData);
+            // generateGraph(geoData);
             Ma.infoTrace(geoData);
         });
     }
@@ -93,7 +95,7 @@ export class Modes {
                 this.savePaths(geoData);
                 var trace = geoData.paths[geoData.focus].features[0];
                 let link = "https://dev.virtualearth.net/REST/v1/Elevation/List?points=" + Number(e.latlng.lat.toFixed(6)) + "," + Number(e.latlng.lng.toFixed(6)) + "&key=AuhAPaqRM0jgPmFRoNzjuOoB8te9aven3EH_L6sj2pFjDSxyvJ796hueyskwz4Aa";
-                $.getJSON(link, function (data) {
+                axios.get(link, function (data) {
                     trace.geometry.coordinates.push([Number(e.latlng.lng.toFixed(6)), Number(e.latlng.lat.toFixed(6)), data.resourceSets[0].resources[0].elevations[0]]);
                 });
                 let latlngs = geoData.layers[geoData.focus].getLatLngs();
@@ -171,7 +173,7 @@ export class Modes {
             }
         }
         document.getElementById("tutorialButton").dispatchEvent(new Event("deletePoint"));
-        generateGraph(geoData);
+        To.generateGraph(geoData);
         this.infoTrace(geoData);
     }
 
@@ -194,7 +196,7 @@ export class Modes {
     static fusion(geoData, idTrace1, idTrace2, mode) {
         this.savePaths(geoData);
         let traceBorn = this.copyAttrPath(geoData, geoData.paths[idTrace1]);
-        if (document.getElementById("traceName").value == "") {
+        if (document.getElementById("traceName").value === "") {
             traceBorn.file = "Nouvelle Trace";
         } else {
             traceBorn.file = document.getElementById("traceName").value;
@@ -252,11 +254,11 @@ export class Modes {
             alert("Vous avez sélectionné 2 fois la même trace.");
         } else {
             document.getElementById("buttonLink").setAttribute("data-dismiss", "modal");
-            deleteTrace(geoData, idTrace2, false);
-            deleteTrace(geoData, idTrace1, false);
+            // To.deleteTrace(geoData, idTrace2, false);
+            // To.deleteTrace(geoData, idTrace1, false);
             geoData.paths[geoData.paths.length] = traceBorn;
-            displayPath(geoData, geoData.paths.length - 1);
-            setListenersUpdate(geoData);
+            To.displayPath(geoData, geoData.paths.length - 1);
+            // setListenersUpdate(geoData);
             this.infoTrace(geoData);
         }
     }
@@ -327,10 +329,10 @@ export class Modes {
             geoData.paths[indexNewPath].features[0].properties.heartRates = geoData.paths[geoData.focus].features[0].properties.heartRates.slice(index);
             geoData.paths[geoData.focus].features[0].properties.heartRates = geoData.paths[geoData.focus].features[0].properties.heartRates.slice(0, index);
         }
-        displayPath(geoData, indexNewPath, false);
-        setFocusClass(geoData);
+        To.displayPath(geoData, indexNewPath, false);
+        To.setFocusClass(geoData);
         this.deleteOldMarkers(geoData);
-        setListenersUpdate(geoData);
+        // setListenersUpdate(geoData);
         this.infoTrace(geoData);
         document.getElementById("tutorialButton").dispatchEvent(new Event("unlink"));
     }
@@ -414,17 +416,17 @@ export class Modes {
             geoData.map.removeLayer(geoData.layers[geoData.focus]);
             geoData.layersControl.removeLayer(geoData.layers[geoData.focus]);
             this.permuteStates(geoData);
-            displayPath(geoData, geoData.focus);
+            To.displayPath(geoData, geoData.focus);
             if (geoData.paths.length > geoData.savedState.paths.length) {
-                displayPath(geoData, geoData.paths.length - 1, false);
-                setFocusClass(geoData);
+                To.displayPath(geoData, geoData.paths.length - 1, false);
+                To.setFocusClass(geoData);
             }
             if (geoData.paths.length < geoData.savedState.paths.length) {
                 geoData.layersControl.removeLayer(geoData.layers[geoData.paths.length]);
-                setFocusClass(geoData);
+                To.setFocusClass(geoData);
             }
             this.infoTrace(geoData);
-            setListenersUpdate(geoData);
+            // setListenersUpdate(geoData);
             geoData.savedState.undo = true;
         } else {
             alert("Il n'y a rien à annuler.");
@@ -441,17 +443,17 @@ export class Modes {
             geoData.map.removeLayer(geoData.layers[geoData.focus]);
             geoData.layersControl.removeLayer(geoData.layers[geoData.focus]);
             this.permuteStates(geoData);
-            displayPath(geoData, geoData.focus);
+            To.displayPath(geoData, geoData.focus);
             if (geoData.paths.length < geoData.savedState.paths.length) {
                 geoData.layersControl.removeLayer(geoData.layers[geoData.paths.length]);
-                setFocusClass(geoData);
+                To.setFocusClass(geoData);
             }
             if (geoData.paths.length > geoData.savedState.paths.length) {
-                displayPath(geoData, geoData.paths.length - 1, false);
-                setFocusClass(geoData);
+                To.displayPath(geoData, geoData.paths.length - 1, false);
+                To.setFocusClass(geoData);
             }
             this.infoTrace(geoData);
-            setListenersUpdate(geoData);
+            // setListenersUpdate(geoData);
             geoData.savedState.undo = false;
 
             document.getElementById("tutorialButton").dispatchEvent(new Event("redo"));

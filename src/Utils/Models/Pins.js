@@ -49,4 +49,4 @@ const yellowMarker = L.icon({
     popupAnchor:  [0, -45]
 });
 
-export default [blackMarker, blueMarker, greenMarker, purpleMarker, redMarker, yellowMarker];
+export default {markers : {blackMarker, blueMarker, greenMarker, purpleMarker, redMarker, yellowMarker}};
