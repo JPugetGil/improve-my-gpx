@@ -1,6 +1,8 @@
 import {Maths as Ma} from './Maths'
 import L from 'leaflet';
 import {Tools as To} from './Tools'
+import {Modes as Mo} from './Modes'
+
 const axios = require('axios');
 
 export class Modes {
@@ -79,7 +81,7 @@ export class Modes {
         axios.get(link, function (data) {
             geoData.paths[geoData.focus].features[0].geometry.coordinates[index][2] = data.resourceSets[0].resources[0].elevations[0];
             // generateGraph(geoData);
-            Ma.infoTrace(geoData);
+            Mo.infoTrace(geoData);
         });
     }
 
@@ -99,7 +101,7 @@ export class Modes {
                     trace.geometry.coordinates.push([Number(e.latlng.lng.toFixed(6)), Number(e.latlng.lat.toFixed(6)), data.resourceSets[0].resources[0].elevations[0]]);
                 });
                 let latlngs = geoData.layers[geoData.focus].getLatLngs();
-                let latlng = L.latLng(Array(Number(e.latlng.lat.toFixed(6)), Number(e.latlng.lng.toFixed(6)), 0));
+                let latlng = L.latLng([Number(e.latlng.lat.toFixed(6)), Number(e.latlng.lng.toFixed(6)), 0]);
                 latlngs.push(latlng);
                 geoData.layers[geoData.focus].setLatLngs(latlngs);
                 this.infoTrace(geoData);
@@ -382,8 +384,7 @@ export class Modes {
     }
 
     static infoTrace(geoData) {
-        let distance = Ma.calculateDistance(geoData.paths[geoData.focus]);
-        document.getElementById("colInfo3").innerHTML = distance;
+        document.getElementById("colInfo3").innerHTML = Ma.calculateDistance(geoData.paths[geoData.focus]);
         document.getElementById("colInfo4").innerHTML = geoData.paths[geoData.focus].features[0].geometry.coordinates.length;
     }
 
@@ -401,8 +402,7 @@ export class Modes {
     }
 
     static permuteStates(geoData) {
-        let temp = [];
-        temp = this.copyAllPaths(geoData, geoData.paths);
+        let temp = this.copyAllPaths(geoData, geoData.paths);
         geoData.paths = this.copyAllPaths(geoData, geoData.savedState.paths);
         geoData.savedState.paths = this.copyAllPaths(geoData, temp);
     }

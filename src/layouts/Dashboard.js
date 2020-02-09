@@ -6,13 +6,38 @@ import {Tools} from '../Utils/MapTools/Tools'
 import file from '../assets/gpx/20120331_4j_TourCerces.gpx'
 
 export default class Map extends React.Component {
+    readFile;
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            geoDatas: {
+                mobile: true,
+                map: undefined,
+                paths: [],
+                layersControl: undefined,
+                savedState: {
+                    paths: [],
+                    undo: false,
+                    upload: false
+                },
+                layers: [],
+                markersColor: [],
+                tempMarkers: [],
+                focus: undefined,
+                mode: "movemap"
+            }
+        };
+    }
+
     componentDidMount() {
         Tools.createGeoData()
             // .then(generateIndex)
             // .then(generateMap)
             // .then(generateTiles)
-            .then(geoData => Tools.addPath(geoData, file))
-            .then(geoData => Tools.displayPath(geoData,0))
+            .then(geoData => this.readGPXFile(geoData, file))
+            .then(geoData => this.updateState(Tools.addPath(this.state.geoDatas, this.readFile)))
+            .then(geoData => this.updateState(Tools.displayPath(this.state.geoDatas, 0)))
             .then(Tools.movePOV)
             // .then(setGeneralListeners)
             // .then(setListeners)
@@ -41,6 +66,21 @@ export default class Map extends React.Component {
             [51.503, -0.06],
             [51.51, -0.047]
         ]).addTo(this.map);
+    }
+
+    readGPXFile(geoJSON, file) {
+        Promise.resolve(file).then(content => {
+            this.readFile = content;
+            this.setState({geoDatas: geoJSON});
+            return geoJSON;
+        });
+    }
+
+    updateState(geoJSON) {
+        Promise.resolve(geoJSON).then(data => {
+            this.setState({geoDatas: data});
+            return geoJSON;
+        });
     }
 
     render() {
