@@ -3,14 +3,20 @@ import './App.css';
 import 'react-bulma-components/dist/react-bulma-components.min.css';
 import routes from './routes';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
-import {library} from '@fortawesome/fontawesome-svg-core'
+import {library} from '@fortawesome/fontawesome-svg-core';
+import {connect} from 'react-redux';
 import icons from './fontLibrary';
 
 library.add(...icons);
 
-function App() {
+function App(props) {
+	const changeDrawer = () => {
+		props.dispatch({type: "SWITCHDRAWER"});
+	};
+
 	return (
 		<Router>
+			<button onClick={changeDrawer}>CHANGE ME</button>
 			{routes.map((route, index) => (
 				<Suspense key={index} fallback={'LOADING...'}>
 					<Route
@@ -24,4 +30,8 @@ function App() {
 	);
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+	state: state
+});
+
+export default connect(mapStateToProps)(App);
