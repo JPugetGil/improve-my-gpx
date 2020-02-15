@@ -1,10 +1,14 @@
-import React, { Fragment } from 'react';
-import { withTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import React, {Fragment} from 'react';
+import {withTranslation} from 'react-i18next';
+import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
 
-import { Button, Container, Heading, Hero, Section } from 'react-bulma-components';
+import {Button, Container, Heading, Hero, Section} from 'react-bulma-components';
 
-function Home({ t }) {
+function Home({props, state, t}) {
+	// props contains dispatchers (you need to load them at the bottom of the file)
+	console.log(props, state);
+
 	return (
 		<Fragment>
 			<Hero color="primary" size="fullheight">
@@ -27,4 +31,14 @@ function Home({ t }) {
 	);
 }
 
-export default withTranslation()(Home);
+const mapDispatchToProps = dispatch => ({
+	props: {
+		toggleSidebar: () => dispatch({type: 'TOGGLESIDEBAR'}),
+	}
+});
+
+const mapStateToProps = (state) => ({
+	state: state
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation()(Home));
