@@ -1,4 +1,4 @@
-// Let's assume it's the global state (you can add field here)
+// Lets assume it's the global state (you can add field here)
 const initialState = {
     openDrawer: true,
     mobile: false,
