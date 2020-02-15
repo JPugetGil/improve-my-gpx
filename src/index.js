@@ -3,18 +3,22 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import './i18n';
 import App from './App';
-import {createStore} from "redux";
+import {ConnectedRouter} from 'connected-react-router'
 import {Provider} from "react-redux";
 import * as serviceWorker from './serviceWorker';
 
-import rootReducers from "./reducers/rootReducers";
+import configureStore, {history} from "./store/configureStore";
 
 
-const store = createStore(rootReducers);
+const store = configureStore(/* provide initial state if any */);
 
 ReactDOM.render(
     <Provider store={store}>
-        <App/>
-    </Provider>, document.getElementById('root'));
+        <ConnectedRouter history={history}>
+            <App/>
+        </ConnectedRouter>
+    </Provider>
+
+    , document.getElementById('root'));
 
 serviceWorker.register();
