@@ -6,19 +6,18 @@ import {BrowserRouter as Router, Route} from 'react-router-dom';
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {connect} from 'react-redux';
 import icons from './fontLibrary';
-import {toggleSidebar} from './actions/appAction' // Import needed actions here
+// import {toggleSidebar} from './actions/appAction' // Import needed actions here
 
 library.add(...icons);
 
 function App(props) {
-    const changeDrawer = () => {
+    /*const changeDrawer = () => {
         props.dispatch(toggleSidebar()); // call the action
-    };
+    };*/
 
 
     return (
         <Router>
-            <button onClick={changeDrawer}>CHANGE ME</button>
             {routes.map((route, index) => (
                 <Suspense key={index} fallback={'LOADING...'}>
                     <Route
