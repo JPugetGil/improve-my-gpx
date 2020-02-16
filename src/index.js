@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import './i18n';
 import App from './App';
 import {ConnectedRouter} from 'connected-react-router'
 import {Provider} from "react-redux";
 import * as serviceWorker from './serviceWorker';
+import './index.css';
 
 import configureStore, {history} from "./store/configureStore";
 
