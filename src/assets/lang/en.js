@@ -1,4 +1,5 @@
 export const en = {
+    "contributors": "Contributors",
     "goBack": "Go back to the previous page",
     "goToHome": "Go to the home page",
     "homeDescription": "Improve my GPX was firstly a website made for a universitary project. It has been rebuilt and rethought to become a webapp.",

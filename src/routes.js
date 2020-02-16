@@ -1,7 +1,7 @@
 import React from 'react';
 // const About = React.lazy(() => import('./layouts/About'));
 const Home = React.lazy(() => import('./layouts/Home'));
-const Dashboard = React.lazy(() => import('./layouts/Dashboard'));
+const Dashboard = React.lazy(() => import('./layouts/GPXMap'));
 const Page404 = React.lazy(() => import('./layouts/Page404'));
 
 
