@@ -1,6 +1,8 @@
-/* TODO : Make leaflet-container h: 100% + w: 100% without making the map disappear */
+html {
+  overflow-y: auto;
+}
 
 .leaflet-container {
-  height: 780px;
+  height: 100vh;
   width: 100%;
 }
