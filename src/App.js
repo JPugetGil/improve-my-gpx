@@ -1,5 +1,5 @@
 import React, {Suspense} from 'react';
-import './App.css';
+import './App.scss';
 import 'react-bulma-components/dist/react-bulma-components.min.css';
 import routes from './routes';
 import {BrowserRouter as Router, Route} from 'react-router-dom';

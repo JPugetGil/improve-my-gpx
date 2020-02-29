@@ -5,7 +5,7 @@ import App from './App';
 import {ConnectedRouter} from 'connected-react-router'
 import {Provider} from "react-redux";
 import * as serviceWorker from './serviceWorker';
-import './index.css';
+import './index.scss';
 
 import configureStore, {history} from "./store/configureStore";
 
