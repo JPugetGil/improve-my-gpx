@@ -3,6 +3,7 @@ import {Hero} from "react-bulma-components";
 import 'leaflet/dist/leaflet.css'
 import {Map, Marker, Popup, TileLayer} from 'react-leaflet';
 import {Icon} from 'leaflet'
+// import Control from 'react-leaflet-control';
 import {withTranslation} from "react-i18next";
 import {connect} from "react-redux";
 import {toggleSidebar} from '../actions/mapActions'
@@ -19,14 +20,14 @@ class GPXMap extends React.Component {
     }
 
     componentDidMount() {
-        // BEGIN - quick fix to disable warning about icons are missing
+        // BEGIN - quick fix to disable warning about missing icons
         delete Icon.Default.prototype._getIconUrl;
         Icon.Default.mergeOptions({
             iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
             iconUrl: require('leaflet/dist/images/marker-icon.png'),
             shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
         });
-        // END - quick fix to disable warning about icons are missing
+        // END - quick fix to disable warning about missing icons
 
         console.log(this.state);
     }
