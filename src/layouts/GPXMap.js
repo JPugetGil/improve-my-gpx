@@ -3,10 +3,10 @@ import {Hero} from "react-bulma-components";
 import 'leaflet/dist/leaflet.css'
 import {Map, Marker, Popup, TileLayer} from 'react-leaflet';
 import {Icon} from 'leaflet'
-// import Control from 'react-leaflet-control';
 import {withTranslation} from "react-i18next";
 import {connect} from "react-redux";
 import {toggleSidebar} from '../actions/mapActions'
+import MapControls from "../components/MapControls";
 
 class GPXMap extends React.Component {
     constructor(props) {
@@ -28,8 +28,6 @@ class GPXMap extends React.Component {
             shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
         });
         // END - quick fix to disable warning about missing icons
-
-        console.log(this.state);
     }
 
     render() {
@@ -45,6 +43,7 @@ class GPXMap extends React.Component {
                     <Marker position={position}>
                         <Popup>A pretty CSS3 popup.<br/>Easily customizable.</Popup>
                     </Marker>
+                    <MapControls/>
                 </Map>
             </Hero>
         );

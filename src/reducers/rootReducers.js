@@ -26,6 +26,11 @@ export default function rootReducers(state = initialState, action) {
                 ...state,
                 openDrawer: !state.openDrawer
             };
+        case "CHANGEMODE":
+            return {
+                ...state,
+                mode: action.mode
+            };
         default:
             return state;
     }
