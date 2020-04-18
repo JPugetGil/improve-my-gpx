@@ -7,6 +7,7 @@ import {withTranslation} from "react-i18next";
 import {connect} from "react-redux";
 import {toggleSidebar} from '../actions/mapActions'
 import MapControls from "../components/MapControls";
+import * as MAPMODES from '../assets/constants/mapModes'
 
 class GPXMap extends React.Component {
     constructor(props) {
@@ -32,15 +33,17 @@ class GPXMap extends React.Component {
 
     render() {
         const position = [this.state.lat, this.state.lng];
+        const state = this.props.mapState.rootReducers;
         const {t} = this.props;
+
         return (
             <Hero size="fullheight">
                 <Map center={position} zoom={this.state.zoom}>
                     <TileLayer
-                        attribution={"&copy; " + t('contributors') + ": <a href='https://hemoreg.me/works/improvemygpx/html/apropos'> Improve my GPX</a>"}
+                        attribution={"&copy; " + t('contributors') + ": <a href=\"/about\">HemöreG - Marvin - Anthony - Thomas</a>"}
                         url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
                     />
-                    <Marker position={position}>
+                    <Marker position={position} draggable={state.mode === MAPMODES.MOVEMARKER}>
                         <Popup>A pretty CSS3 popup.<br/>Easily customizable.</Popup>
                     </Marker>
                     <MapControls/>

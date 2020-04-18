@@ -102,8 +102,7 @@ export class Tools {
                     if ((!(!(i === geoData.paths[j].features[0].geometry.coordinates.length - 1) && !((i % 50 === 0) && (i !== 0))))) {
                         listCoord = listCoord.substring(0, listCoord.length - 1);
                         let link = "https://dev.virtualearth.net/REST/v1/Elevation/List?points=" + listCoord + "&key=AuhAPaqRM0jgPmFRoNzjuOoB8te9aven3EH_L6sj2pFjDSxyvJ796hueyskwz4Aa";
-                        tabPromises.push(axios.get(link, function (data) {
-                        }));
+                        tabPromises.push(axios.get(link, function (data) {}));
                         listCoord = "";
                     }
                 }
