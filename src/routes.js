@@ -1,8 +1,7 @@
 import React from 'react';
 // const About = React.lazy(() => import('./layouts/About'));
 const Home = React.lazy(() => import('./layouts/Home'));
-const Dashboard = React.lazy(() => import('./layouts/Dashboard'));
-const Page404 = React.lazy(() => import('./layouts/Page404'));
+const Dashboard = React.lazy(() => import('./layouts/GPXMap'));
 
 
 const routes = [
@@ -19,11 +18,7 @@ const routes = [
   // {
   //   path: '/about',
   //   main: () => <About/>
-  // },
-  {
-    path: '/*',
-    main: (data) => <Page404 data={data} />
-  }
+  // }
 ];
 
 export default routes;
