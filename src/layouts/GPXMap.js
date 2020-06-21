@@ -31,10 +31,57 @@ class GPXMap extends React.Component {
         // END - quick fix to disable warning about missing icons
     }
 
+    getMyPosition() {
+        if (navigator.geolocation) {
+            navigator.geolocation.watchPosition(this.centerPosition, this.checkError)
+        } else {
+            alert('Geolocation is not supported.') // TODO
+        }
+    }
+
+    centerPosition(position) {
+        this.setState({
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+        });
+    }
+
+    checkError(error) {
+        switch (error.code) {
+            case error.PERMISSION_DENIED:
+                alert('L\'utilisateur a refusé la requête pour la Geolocalisation.')
+                break
+            case error.POSITION_UNAVAILABLE:
+                alert('Les informations de geolocalisation sont indisponibles.')
+                break
+            case error.TIMEOUT:
+                alert('La requête a expiré.')
+                break
+            case error.UNKNOWN_ERROR:
+                alert('Une erreur inconnue s\'est déroulée.')
+                break
+            default:
+                break
+        }
+    }
+
+
     render() {
         const position = [this.state.lat, this.state.lng];
         const state = this.props.mapState.rootReducers;
         const {t} = this.props;
+
+        const markers = [
+            {
+                position: position
+            },
+            {
+                position: position
+            },
+            {
+                position: position
+            }
+        ];
 
         return (
             <Hero size="fullheight">
@@ -43,9 +90,11 @@ class GPXMap extends React.Component {
                         attribution={"&copy; " + t('contributors') + ": <a href=\"/about\">HemöreG - Marvin - Anthony - Thomas</a>"}
                         url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
                     />
-                    <Marker position={position} draggable={state.mode === MAPMODES.MOVEMARKER}>
-                        <Popup>A pretty CSS3 popup.<br/>Easily customizable.</Popup>
-                    </Marker>
+                    {markers.map((marker, index) =>
+                        <Marker position={marker.position} draggable={state.mode === MAPMODES.MOVEMARKER}>
+                            <Popup>Popup {index}.<br/>Easily customizable.</Popup>
+                        </Marker>
+                    )}
                     <MapControls/>
                 </Map>
             </Hero>

@@ -95,7 +95,7 @@ const buttonsControls = [
                 icon: 'print',
                 feature: {
                     isReducer: false,
-                    todo: () => alert("PRINT ICON")
+                    todo: () => window.print()
                 }
             }
         ]
