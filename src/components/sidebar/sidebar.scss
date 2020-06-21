@@ -60,14 +60,14 @@ $sidebar--width: (
         }
 
         &--hidden {
-            transform: translateY(-50%) translateX(85vw);
+            transform: translateY(-50%) translateX(calc(#{map-get($sidebar--width, phone)} - 4rem));
 
             @media only screen and (min-width: map-get($breakpoints, tablet)) {
-                transform: translateY(-50%) translateX(40vw);
+                transform: translateY(-50%) translateX(calc(#{map-get($sidebar--width, tablet)} - 4rem));
             }
 
             @media only screen and (min-width: map-get($breakpoints, desktop)) {
-                transform: translateY(-50%) translateX(25vw);
+                transform: translateY(-50%) translateX(calc(#{map-get($sidebar--width, desktop)} - 4rem));
             }
         }
 
