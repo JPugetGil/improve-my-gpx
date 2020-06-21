@@ -6,6 +6,8 @@ import { Button, Columns, Container, Heading, Image, Menu } from 'react-bulma-co
 
 import { toggleSidebar } from '../../actions/appAction';
 
+import { menuItems } from '../../assets/constants';
+
 import logo from '../../assets/images/logo.png';
 
 import './sidebar.scss';
@@ -14,23 +16,6 @@ class Sidebar extends React.Component {
     constructor(props) {
         super(props);
         this.sidebarRef = React.createRef();
-        this.menuItems = [
-            {
-                to: '/map',
-                icon: 'play',
-                label: 'sidebar.menuItems.1',
-            },
-            {
-                to: '/map',
-                icon: 'question',
-                label: 'sidebar.menuItems.2',
-            },
-            {
-                to: '/map',
-                icon: 'users',
-                label: 'sidebar.menuItems.3',
-            },
-        ];
     }
 
     componentDidMount() {
@@ -74,7 +59,7 @@ class Sidebar extends React.Component {
 
                     <Menu>
                         <Menu.List>
-                            {this.menuItems.map((menuItem, index) => (
+                            {menuItems.map((menuItem, index) => (
                                 <Menu.List.Item to={menuItem.to} key={index}>
                                     <Fragment>
                                         <span className="menu-list-item-icon">
