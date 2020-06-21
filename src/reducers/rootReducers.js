@@ -1,6 +1,6 @@
 // Lets assume it's the global state (you can add field here)
 const initialState = {
-    openDrawer: true,
+    openDrawer: false,
     mobile: false,
     map: undefined,
     paths: [],

@@ -7,6 +7,7 @@ import {withTranslation} from "react-i18next";
 import {connect} from "react-redux";
 import {toggleSidebar} from '../actions/mapActions'
 import MapControls from "../components/MapControls";
+import Sidebar from '../components/sidebar/Sidebar';
 
 class GPXMap extends React.Component {
     constructor(props) {
@@ -35,6 +36,7 @@ class GPXMap extends React.Component {
         const {t} = this.props;
         return (
             <Hero size="fullheight">
+                <Sidebar/>
                 <Map center={position} zoom={this.state.zoom}>
                     <TileLayer
                         attribution={"&copy; " + t('contributors') + ": <a href='https://hemoreg.me/works/improvemygpx/html/apropos'> Improve my GPX</a>"}

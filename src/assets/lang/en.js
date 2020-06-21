@@ -1,4 +1,5 @@
 export const en = {
+    "siteName": "Improve my GPX",
     "contributors": "Contributors",
     "goBack": "Go back to the previous page",
     "goToHome": "Go to the home page",
@@ -8,4 +9,11 @@ export const en = {
     "pageNotFoundTitle": "Oops... Page not found",
     "pageNotFoundContent": "The page you are looking for does not seem to exist.",
     "welcome": "Welcome",
+    "sidebar": {
+        "menuItems": {
+            "1": "Tutorial",
+            "2": "Need help ?",
+            "3": "About",
+        },
+    },
 };

@@ -1,4 +1,5 @@
 export const fr = {
+    "siteName": "Improve my GPX",
     "contributors": "Contributeur.se.s",
     "goBack": "Retourner à la page précédente",
     "goToHome": "Aller à la page d'accueil",
@@ -8,4 +9,11 @@ export const fr = {
     "pageNotFoundTitle": "Oops... La page n'a pas été trouvée",
     "pageNotFoundContent": "La page que vous recherchez ne semble pas exister.",
     "welcome": "Bienvenue",
+    "sidebar": {
+        "menuItems": {
+            "1": "Tutoriel",
+            "2": "Besoin d'aide ?",
+            "3": "À Propos",
+        },
+    },
 };
