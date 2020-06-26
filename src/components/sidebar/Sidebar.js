@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link } from 'react-router-dom';
 import { Button, Columns, Container, Heading, Image, Menu } from 'react-bulma-components';
 
 import { toggleSidebar } from '../../actions/appAction';
@@ -42,7 +43,11 @@ class Sidebar extends React.Component {
                     className={'sidebar has-background-white' + (this.props.state.rootReducers.openDrawer ? ' sidebar--open' : '')}
                     ref={this.sidebarRef}
                 >
-                    <Button className="sidebar__toggle sidebar__toggle--hidden" color="info" onClick={() => this.props.dispatch(toggleSidebar())}>
+                    <Button
+                        className="sidebar__toggle sidebar__toggle--hidden"
+                        color="info"
+                        onClick={() => this.props.dispatch(toggleSidebar())}
+                    >
                         <FontAwesomeIcon icon="arrow-right" />
                     </Button>
 
@@ -60,7 +65,12 @@ class Sidebar extends React.Component {
                     <Menu>
                         <Menu.List>
                             {menuItems.map((menuItem, index) => (
-                                <Menu.List.Item to={menuItem.to} key={index}>
+                                <Menu.List.Item
+                                    renderAs={Link}
+                                    to={menuItem.to}
+                                    key={index}
+                                    onClick={() => this.props.dispatch(toggleSidebar())}
+                                >
                                     <Fragment>
                                         <span className="menu-list-item-icon">
                                             <FontAwesomeIcon icon={menuItem.icon} />
