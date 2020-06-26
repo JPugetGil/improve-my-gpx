@@ -3,7 +3,8 @@ import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
-import { Button, Columns, Container, Heading, Image, Menu } from 'react-bulma-components';
+import { Button, Columns, Container, Dropdown, Heading, Image, Menu } from 'react-bulma-components';
+import i18n from '../../i18n';
 
 import { toggleSidebar } from '../../actions/appAction';
 
@@ -14,6 +15,8 @@ import logo from '../../assets/images/logo.png';
 import './sidebar.scss';
 
 class Sidebar extends React.Component {
+    currentLanguage = i18n.getDataByLanguage(i18n.language);
+
     constructor(props) {
         super(props);
         this.sidebarRef = React.createRef();
@@ -34,6 +37,11 @@ class Sidebar extends React.Component {
         if (this.props.state.rootReducers.openDrawer && !this.sidebarRef.current.contains(e.target)) {
             this.props.dispatch(toggleSidebar());
         }
+    };
+
+    handleChangeLanguage = (language) => {
+        i18n.changeLanguage(language);
+        this.currentLanguage = i18n.getDataByLanguage(i18n.language);
     };
 
     render() {
@@ -81,6 +89,14 @@ class Sidebar extends React.Component {
                             ))}
                         </Menu.List>
                     </Menu>
+
+                    <Dropdown className="dropdown__language" up={true} onChange={(language) => this.handleChangeLanguage(language)} label={this.currentLanguage.label} value={i18n.language}>
+                        {Object.keys(i18n.services.resourceStore.data).map((language, index) => (
+                            <Dropdown.Item value={language} key={index}>
+                                {i18n.getDataByLanguage(language).label}
+                            </Dropdown.Item>
+                        ))}
+                    </Dropdown>
                 </div>
             </Fragment>
         );
