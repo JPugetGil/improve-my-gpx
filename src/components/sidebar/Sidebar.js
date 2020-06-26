@@ -90,7 +90,13 @@ class Sidebar extends React.Component {
                         </Menu.List>
                     </Menu>
 
-                    <Dropdown className="dropdown__language" up={true} onChange={(language) => this.handleChangeLanguage(language)} label={this.currentLanguage.label} value={i18n.language}>
+                    <Dropdown
+                        className="dropdown__language"
+                        up={true}
+                        onChange={(language) => this.handleChangeLanguage(language)}
+                        label={this.currentLanguage.label}
+                        value={i18n.language}
+                    >
                         {Object.keys(i18n.services.resourceStore.data).map((language, index) => (
                             <Dropdown.Item value={language} key={index}>
                                 {i18n.getDataByLanguage(language).label}
