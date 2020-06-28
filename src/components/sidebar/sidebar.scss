@@ -8,6 +8,8 @@ $sidebar--width: (
 
 .sidebar {
     position: absolute;
+    display: flex;
+    flex-direction: column;
     width: map-get($sidebar--width, phone);
     height: 100vh;
     z-index: 1001;
@@ -78,6 +80,8 @@ $sidebar--width: (
     }
 
     .logo {
+        flex-grow: 0;
+        margin: 0;
         padding: 1rem;
     }
 
@@ -95,6 +99,23 @@ $sidebar--width: (
                     width: 3rem;
                     margin-right: 1rem;
                 }
+            }
+        }
+    }
+
+    .dropdown {
+        &__language {
+            margin: auto 1rem 1rem 1rem;
+
+            &.is-active {
+                .icon {
+                    transform: rotate(0);
+                }
+            }
+
+            .icon {
+                transform: rotate(180deg);
+                transition: transform 0.3s;
             }
         }
     }
