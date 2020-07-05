@@ -1,3 +1,5 @@
+import * as MAPMODES from '../assets/constants/mapModes'
+
 const buttonsControls = [
     {
         position: 'topright',
@@ -5,12 +7,18 @@ const buttonsControls = [
             {
                 color: 'dark',
                 icon: 'folder-open',
-                feature: () => alert("FOLDER ICON")
+                feature: {
+                    isReducer: false,
+                    todo: () => alert("FOLDER ICON")
+                }
             },
             {
                 color: 'dark',
                 icon: 'hand-point-up',
-                feature: () => alert("MOVE ICON")
+                feature: {
+                    isReducer: true,
+                    todo: MAPMODES.MOVEMARKER
+                }
             }
         ]
     },
@@ -20,7 +28,10 @@ const buttonsControls = [
             {
                 color: 'dark',
                 icon: 'plus',
-                feature: () => alert("PLUS ICON")
+                feature: {
+                    isReducer: true,
+                    todo: MAPMODES.ADDMARKER
+                }
             }
         ]
     },
@@ -30,7 +41,10 @@ const buttonsControls = [
             {
                 color: 'dark',
                 icon: 'minus',
-                feature: () => alert("MINUS ICON")
+                feature: {
+                    isReducer: true,
+                    todo: MAPMODES.REMOVEMARKER
+                }
             }
         ]
     },
@@ -40,7 +54,10 @@ const buttonsControls = [
             {
                 color: 'dark',
                 icon: 'undo-alt',
-                feature: () => alert("UNDO ICON")
+                feature: {
+                    isReducer: true,
+                    todo: MAPMODES.UNDO
+                }
             }
         ]
     },
@@ -50,7 +67,10 @@ const buttonsControls = [
             {
                 color: 'dark',
                 icon: 'redo-alt',
-                feature: () => alert("REDO ICON")
+                feature: {
+                    isReducer: true,
+                    todo: MAPMODES.REDO
+                }
             }
         ]
     },
@@ -60,7 +80,10 @@ const buttonsControls = [
             {
                 color: 'dark',
                 icon: 'question',
-                feature: () => alert("HELP ICON")
+                feature: {
+                    isReducer: true,
+                    todo: MAPMODES.HELP
+                }
             }
         ]
     },
@@ -70,7 +93,10 @@ const buttonsControls = [
             {
                 color: 'dark',
                 icon: 'print',
-                feature: () => alert("PRINT ICON")
+                feature: {
+                    isReducer: false,
+                    todo: () => window.print()
+                }
             }
         ]
     },
@@ -80,7 +106,10 @@ const buttonsControls = [
             {
                 color: 'dark',
                 icon: 'compass',
-                feature: () => alert("COMPASS ICON")
+                feature: {
+                    isReducer: true,
+                    todo: MAPMODES.LOCATEANDFOLLOW
+                }
             }
         ]
     }
