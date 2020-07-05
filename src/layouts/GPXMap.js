@@ -14,9 +14,9 @@ class GPXMap extends React.Component {
         super(props);
         this.state = {
             ...props.mapState.rootReducers,
-            lat: 51.505,
-            lng: -0.09,
-            zoom: 13
+            lat: 0,
+            lng: 0,
+            zoom: 2
         };
     }
 
