@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import { Button, Columns, Container, Dropdown, Heading, Image, Menu } from 'react-bulma-components';
 import i18n from '../../i18n';
-import Utils from '../../utils';
+import Utils from '../../assets/utils';
 
 import { toggleSidebar } from '../../actions/appAction';
 
