@@ -22,7 +22,7 @@ i18n.use(Backend)
     .use(initReactI18next)
     .init({
         resources,
-        fallbackLng: 'en',
+        fallbackLng: 'fr',
         interpolation: {
             escapeValue: false,
         },
