@@ -2,7 +2,7 @@ import React from "react"
 import Control from "react-leaflet-control";
 import {Button} from "react-bulma-components";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import buttonControls from './buttons-controls';
+import buttonsControls from './buttons-controls';
 import {changeMode} from "../actions/mapActions";
 import {connect} from "react-redux";
 
@@ -13,7 +13,7 @@ const squareButton = {
 };
 
 const MapControls = ({changeMode}) => {
-    return buttonControls.map((control, index1) =>
+    return buttonsControls.map((control, index1) =>
         <Control key={index1} position={control.position}>
             {
                 control.buttons.map((button, index) => {

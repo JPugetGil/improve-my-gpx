@@ -7,6 +7,7 @@ import {withTranslation} from "react-i18next";
 import {connect} from "react-redux";
 import {toggleSidebar} from '../actions/mapActions'
 import MapControls from "../components/MapControls";
+import Sidebar from '../components/sidebar/Sidebar';
 import * as MAPMODES from '../assets/constants/mapModes'
 
 class GPXMap extends React.Component {
@@ -14,9 +15,9 @@ class GPXMap extends React.Component {
         super(props);
         this.state = {
             ...props.mapState.rootReducers,
-            lat: 51.505,
-            lng: -0.09,
-            zoom: 13
+            lat: 0,
+            lng: 0,
+            zoom: 2
         };
     }
 
@@ -85,6 +86,7 @@ class GPXMap extends React.Component {
 
         return (
             <Hero size="fullheight">
+                <Sidebar/>
                 <Map center={position} zoom={this.state.zoom}>
                     <TileLayer
                         attribution={"&copy; " + t('contributors') + ": <a href=\"/about\">HemöreG - Marvin - Anthony - Thomas</a>"}

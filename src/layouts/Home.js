@@ -6,9 +6,8 @@ import {Link} from 'react-router-dom';
 import {Button, Container, Heading, Hero, Section} from 'react-bulma-components';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
-function Home({props, state, t}) {
+function Home({t}) {
     // props contains dispatchers (you need to load them at the bottom of the file)
-    console.log(props, state);
     const sectionStyle = {
         padding: '3rem 1.5rem 3rem 0rem',
     };

@@ -1,0 +1,122 @@
+@import "../../vars";
+
+$sidebar--width: (
+    phone   : 100vw,
+    tablet  : 50vw,
+    desktop : 30vw,
+);
+
+.sidebar {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    width: map-get($sidebar--width, phone);
+    height: 100vh;
+    z-index: 1001;
+    transform: translateX(-100%);
+    transition: transform 0.5s;
+
+    @media only screen and (min-width: map-get($breakpoints, tablet)) {
+        width: map-get($sidebar--width, tablet);
+    }
+
+    @media only screen and (min-width: map-get($breakpoints, desktop)) {
+        width: map-get($sidebar--width, desktop);
+    }
+
+    &.sidebar--open {
+        transform: translateX(0);
+
+        .sidebar__toggle {
+            border-radius: 4px 0 0 4px;
+            transform: translateY(-50%) translateX(calc(#{map-get($sidebar--width, phone)} - 100%));
+
+            @media only screen and (min-width: map-get($breakpoints, tablet)) {
+                transform: translateY(-50%) translateX(calc(#{map-get($sidebar--width, tablet)} - 100%));
+            }
+
+            @media only screen and (min-width: map-get($breakpoints, desktop)) {
+                transform: translateY(-50%) translateX(calc(#{map-get($sidebar--width, desktop)} - 100%));
+            }
+
+            svg {
+                transform: rotate(180deg);
+            }
+        }
+    }
+
+    &__toggle {
+        position: absolute;
+        top: 50%;
+        border-radius: 0 4px 4px 0;
+        z-index: 1001;
+        transform: translateY(-50%) translateX(map-get($sidebar--width, phone));
+        transition: border-radius 0.5s, transform 0.5s;
+
+        @media only screen and (min-width: map-get($breakpoints, tablet)) {
+            transform: translateY(-50%) translateX(map-get($sidebar--width, tablet));
+        }
+
+        @media only screen and (min-width: map-get($breakpoints, desktop)) {
+            transform: translateY(-50%) translateX(map-get($sidebar--width, desktop));
+        }
+
+        &--hidden {
+            transform: translateY(-50%) translateX(calc(#{map-get($sidebar--width, phone)} - 4rem));
+
+            @media only screen and (min-width: map-get($breakpoints, tablet)) {
+                transform: translateY(-50%) translateX(calc(#{map-get($sidebar--width, tablet)} - 4rem));
+            }
+
+            @media only screen and (min-width: map-get($breakpoints, desktop)) {
+                transform: translateY(-50%) translateX(calc(#{map-get($sidebar--width, desktop)} - 4rem));
+            }
+        }
+
+        svg {
+            transform: rotate(0);
+            transition: transform 0.5s;
+        }
+    }
+
+    .logo {
+        flex-grow: 0;
+        margin: 0;
+        padding: 1rem;
+    }
+
+    .menu {
+        &-list {
+            a {
+                display: flex;
+                align-items: center;
+                padding: 1em 1.5em;
+
+                .menu-list-item-icon {
+                    display: inline-flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 3rem;
+                    margin-right: 1rem;
+                }
+            }
+        }
+    }
+
+    .dropdown {
+        &__language {
+            margin: auto 1rem 1rem 1rem;
+
+            &.is-active {
+                .icon {
+                    transform: rotate(0);
+                }
+            }
+
+            .icon {
+                transform: rotate(180deg);
+                transition: transform 0.3s;
+            }
+        }
+    }
+}
