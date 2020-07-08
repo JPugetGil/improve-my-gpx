@@ -30,40 +30,6 @@ class GPXMap extends React.Component {
     // END - quick fix to disable warning about missing icons
   }
 
-  getMyPosition () {
-    if (navigator.geolocation) {
-      navigator.geolocation.watchPosition(this.centerPosition, this.checkError)
-    } else {
-      alert('Geolocation is not supported.') // TODO
-    }
-  }
-
-  centerPosition (position) {
-    this.setState({
-      lat: position.coords.latitude,
-      lng: position.coords.longitude
-    })
-  }
-
-  checkError (error) {
-    switch (error.code) {
-      case error.PERMISSION_DENIED:
-        alert('L\'utilisateur a refusé la requête pour la Geolocalisation.')
-        break
-      case error.POSITION_UNAVAILABLE:
-        alert('Les informations de geolocalisation sont indisponibles.')
-        break
-      case error.TIMEOUT:
-        alert('La requête a expiré.')
-        break
-      case error.UNKNOWN_ERROR:
-        alert('Une erreur inconnue s\'est déroulée.')
-        break
-      default:
-        break
-    }
-  }
-
   render () {
     const position = [this.state.lat, this.state.lng]
     const state = this.props.mapState.mapReducers

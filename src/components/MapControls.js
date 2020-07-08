@@ -1,27 +1,45 @@
-import React from "react"
-import Control from "react-leaflet-control";
-import {Button} from "react-bulma-components";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import buttonsControls from './buttons-controls';
-import {changeMode} from "../actions/mapActions";
-import {connect} from "react-redux";
+import React from 'react'
+import Control from 'react-leaflet-control'
+import { Button } from 'react-bulma-components'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import buttonsControls from './buttons-controls'
+import { changeMode } from '../actions/mapActions'
+import { connect } from 'react-redux'
+import * as ORIGINMODES from '../assets/constants/originModes'
 
 const squareButton = {
     width: '2rem',
     height: '2rem',
     marginLeft: '1rem'
-};
+}
 
-const MapControls = ({changeMode}) => {
+const MapControls = ({ changeMode }) => {
+
+    function activate (feature) {
+        switch (feature.origin) {
+            case ORIGINMODES.FUNCTION:
+                feature.todo()
+                break
+            case ORIGINMODES.REDUCER:
+                // Means, "to do/add"
+                break
+            case ORIGINMODES.CHANGEMODE:
+                changeMode(feature.todo)
+                break
+            default:
+                break
+        }
+    }
+
     return buttonsControls.map((control, index1) =>
-        <Control key={index1} position={control.position}>
-            {
-                control.buttons.map((button, index) => {
-                    return (
-                        <Button key={index}
-                                onClick={button.feature.isReducer ? () => changeMode(button.feature.todo) : button.feature.todo}
-                                color={button.color} style={squareButton}>
-                            <FontAwesomeIcon icon={button.icon}/>
+      <Control key={index1} position={control.position}>
+          {
+              control.buttons.map((button, index) => {
+                  return (
+                    <Button key={index}
+                            onClick={() => activate(button.feature)}
+                            color={button.color} style={squareButton}>
+                        <FontAwesomeIcon icon={button.icon}/>
                         </Button>
                     );
                 })

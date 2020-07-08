@@ -1,4 +1,5 @@
 import * as MAPMODES from '../assets/constants/mapModes'
+import * as ORIGINMODES from '../assets/constants/originModes'
 
 const buttonsControls = [
     {
@@ -8,15 +9,15 @@ const buttonsControls = [
                 color: 'dark',
                 icon: 'folder-open',
                 feature: {
-                    isReducer: false,
-                    todo: () => alert("FOLDER ICON")
+                    origin: ORIGINMODES.FUNCTION,
+                    todo: () => alert('FOLDER ICON')
                 }
             },
             {
                 color: 'dark',
                 icon: 'hand-point-up',
                 feature: {
-                    isReducer: true,
+                    origin: ORIGINMODES.CHANGEMODE,
                     todo: MAPMODES.MOVEMARKER
                 }
             }
@@ -29,7 +30,7 @@ const buttonsControls = [
                 color: 'dark',
                 icon: 'plus',
                 feature: {
-                    isReducer: true,
+                    origin: ORIGINMODES.CHANGEMODE,
                     todo: MAPMODES.ADDMARKER
                 }
             }
@@ -42,7 +43,7 @@ const buttonsControls = [
                 color: 'dark',
                 icon: 'minus',
                 feature: {
-                    isReducer: true,
+                    origin: ORIGINMODES.CHANGEMODE,
                     todo: MAPMODES.REMOVEMARKER
                 }
             }
@@ -55,7 +56,7 @@ const buttonsControls = [
                 color: 'dark',
                 icon: 'undo-alt',
                 feature: {
-                    isReducer: true,
+                    origin: ORIGINMODES.CHANGEMODE,
                     todo: MAPMODES.UNDO
                 }
             }
@@ -68,7 +69,7 @@ const buttonsControls = [
                 color: 'dark',
                 icon: 'redo-alt',
                 feature: {
-                    isReducer: true,
+                    origin: ORIGINMODES.CHANGEMODE,
                     todo: MAPMODES.REDO
                 }
             }
@@ -81,7 +82,7 @@ const buttonsControls = [
                 color: 'dark',
                 icon: 'question',
                 feature: {
-                    isReducer: true,
+                    origin: ORIGINMODES.CHANGEMODE,
                     todo: MAPMODES.HELP
                 }
             }
@@ -94,7 +95,7 @@ const buttonsControls = [
                 color: 'dark',
                 icon: 'print',
                 feature: {
-                    isReducer: false,
+                    origin: ORIGINMODES.FUNCTION,
                     todo: () => window.print()
                 }
             }
@@ -107,7 +108,7 @@ const buttonsControls = [
                 color: 'dark',
                 icon: 'compass',
                 feature: {
-                    isReducer: true,
+                    origin: ORIGINMODES.REDUCER,
                     todo: MAPMODES.LOCATEANDFOLLOW
                 }
             }
