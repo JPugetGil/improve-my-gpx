@@ -10,7 +10,7 @@ export const menuItems = [
         label: 'sidebar.menuItems.2',
     },
     {
-        to: '/map',
+        to: '/about',
         icon: 'users',
         label: 'sidebar.menuItems.3',
     },

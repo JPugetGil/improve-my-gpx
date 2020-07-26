@@ -1,9 +1,9 @@
-@import "../../vars";
+@import '../../vars';
 
 $sidebar--width: (
-    phone   : 100vw,
-    tablet  : 50vw,
-    desktop : 30vw,
+    phone: 100vw,
+    tablet: 50vw,
+    desktop: 30vw,
 );
 
 .sidebar {
@@ -79,10 +79,8 @@ $sidebar--width: (
         }
     }
 
-    .logo {
+    .container {
         flex-grow: 0;
-        margin: 0;
-        padding: 1rem;
     }
 
     .menu {
@@ -105,8 +103,6 @@ $sidebar--width: (
 
     .dropdown {
         &__language {
-            margin: auto 1rem 1rem 1rem;
-
             &.is-active {
                 .icon {
                     transform: rotate(0);

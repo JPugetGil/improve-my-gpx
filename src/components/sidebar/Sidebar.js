@@ -3,7 +3,7 @@ import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
-import { Button, Columns, Container, Dropdown, Heading, Image, Menu } from 'react-bulma-components';
+import { Box, Button, Columns, Container, Dropdown, Heading, Image, Menu } from 'react-bulma-components';
 import i18n from '../../i18n';
 import Utils from '../../assets/utils';
 
@@ -27,7 +27,7 @@ class Sidebar extends React.Component {
         document.addEventListener('mousedown', this.handleClick, false);
         setTimeout(() => {
             this.sidebarRef.current.querySelector('.sidebar__toggle').classList.remove('sidebar__toggle--hidden');
-        }, 2000);
+        }, 1000);
     }
 
     componentWillUnmount() {
@@ -50,7 +50,10 @@ class Sidebar extends React.Component {
         return (
             <Fragment>
                 <div
-                    className={'sidebar has-background-white' + (this.props.state.rootReducers.openDrawer ? ' sidebar--open' : '')}
+                    className={
+                        'sidebar has-background-white' +
+                        (this.props.state.rootReducers.openDrawer ? ' sidebar--open' : '')
+                    }
                     ref={this.sidebarRef}
                 >
                     <Button
@@ -61,7 +64,7 @@ class Sidebar extends React.Component {
                         <FontAwesomeIcon icon="arrow-right" />
                     </Button>
 
-                    <Container className="logo">
+                    <Container className="logo mx-0 my-0 px-4 py-4">
                         <Columns breakpoint="mobile" className="is-vcentered">
                             <Columns.Column narrow>
                                 <Image src={logo} size={64} />
@@ -92,19 +95,32 @@ class Sidebar extends React.Component {
                         </Menu.List>
                     </Menu>
 
-                    <Dropdown
-                        className="dropdown__language"
-                        up={true}
-                        onChange={(language) => this.handleChangeLanguage(language)}
-                        label={this.currentLanguage.label}
-                        value={this.language}
-                    >
-                        {Object.keys(i18n.services.resourceStore.data).map((language, index) => (
-                            <Dropdown.Item value={language} key={index}>
-                                {i18n.getDataByLanguage(language).label}
-                            </Dropdown.Item>
-                        ))}
-                    </Dropdown>
+                    <Container className="mx-0 mt-auto px-4 py-4">
+                        <Columns breakpoint="mobile" className="is-vcentered">
+                            <Columns.Column narrow>
+                                <Dropdown
+                                    className="dropdown__language"
+                                    up={true}
+                                    onChange={(language) => this.handleChangeLanguage(language)}
+                                    label={this.currentLanguage.label}
+                                    value={this.language}
+                                >
+                                    {Object.keys(i18n.services.resourceStore.data).map((language, index) => (
+                                        <Dropdown.Item value={language} key={index}>
+                                            {i18n.getDataByLanguage(language).label}
+                                        </Dropdown.Item>
+                                    ))}
+                                </Dropdown>
+                            </Columns.Column>
+                            <Columns.Column>
+                                <Box>
+                                    <p>GIL Jérôme</p>
+                                    <p>PEYROT Thomas</p>
+                                    <p>SCRIVEN Anthony</p>
+                                </Box>
+                            </Columns.Column>
+                        </Columns>
+                    </Container>
                 </div>
             </Fragment>
         );
