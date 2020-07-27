@@ -1,4 +1,4 @@
-import * as MAPMODES from '../assets/constants/mapModes'
+import * as MAPMODES from '../assets/constants/mapModes';
 
 const buttonsControls = [
     {
@@ -9,18 +9,21 @@ const buttonsControls = [
                 icon: 'folder-open',
                 feature: {
                     isReducer: false,
-                    todo: () => alert("FOLDER ICON")
-                }
+                    todo: () => alert('FOLDER ICON'),
+                },
             },
             {
                 color: 'dark',
                 icon: 'hand-point-up',
+                style: {
+                    marginLeft: '10px',
+                },
                 feature: {
                     isReducer: true,
-                    todo: MAPMODES.MOVEMARKER
-                }
-            }
-        ]
+                    todo: MAPMODES.MOVEMARKER,
+                },
+            },
+        ],
     },
     {
         position: 'topright',
@@ -30,10 +33,10 @@ const buttonsControls = [
                 icon: 'plus',
                 feature: {
                     isReducer: true,
-                    todo: MAPMODES.ADDMARKER
-                }
-            }
-        ]
+                    todo: MAPMODES.ADDMARKER,
+                },
+            },
+        ],
     },
     {
         position: 'topright',
@@ -43,10 +46,10 @@ const buttonsControls = [
                 icon: 'minus',
                 feature: {
                     isReducer: true,
-                    todo: MAPMODES.REMOVEMARKER
-                }
-            }
-        ]
+                    todo: MAPMODES.REMOVEMARKER,
+                },
+            },
+        ],
     },
     {
         position: 'topright',
@@ -56,10 +59,10 @@ const buttonsControls = [
                 icon: 'undo-alt',
                 feature: {
                     isReducer: true,
-                    todo: MAPMODES.UNDO
-                }
-            }
-        ]
+                    todo: MAPMODES.UNDO,
+                },
+            },
+        ],
     },
     {
         position: 'topright',
@@ -69,10 +72,10 @@ const buttonsControls = [
                 icon: 'redo-alt',
                 feature: {
                     isReducer: true,
-                    todo: MAPMODES.REDO
-                }
-            }
-        ]
+                    todo: MAPMODES.REDO,
+                },
+            },
+        ],
     },
     {
         position: 'topright',
@@ -82,10 +85,10 @@ const buttonsControls = [
                 icon: 'question',
                 feature: {
                     isReducer: true,
-                    todo: MAPMODES.HELP
-                }
-            }
-        ]
+                    todo: MAPMODES.HELP,
+                },
+            },
+        ],
     },
     {
         position: 'topright',
@@ -95,10 +98,10 @@ const buttonsControls = [
                 icon: 'print',
                 feature: {
                     isReducer: false,
-                    todo: () => window.print()
-                }
-            }
-        ]
+                    todo: () => window.print(),
+                },
+            },
+        ],
     },
     {
         position: 'topleft',
@@ -108,12 +111,11 @@ const buttonsControls = [
                 icon: 'compass',
                 feature: {
                     isReducer: true,
-                    todo: MAPMODES.LOCATEANDFOLLOW
-                }
-            }
-        ]
-    }
+                    todo: MAPMODES.LOCATEANDFOLLOW,
+                },
+            },
+        ],
+    },
 ];
-
 
 export default buttonsControls;
