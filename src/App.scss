@@ -37,6 +37,21 @@
     }
 }
 
+@media print {
+
+    // Print page in landscape and hide header and footer
+    @page {
+        size: landscape;
+        margin: 0mm;
+    }
+
+    // Hide unwanted elements
+    .no-print,
+    .leaflet-control {
+        display: none !important;
+    }
+}
+
 // Bulma helpers
 .is-marginless {
     margin: 0 !important;

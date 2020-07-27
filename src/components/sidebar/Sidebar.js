@@ -51,7 +51,7 @@ class Sidebar extends React.Component {
             <Fragment>
                 <div
                     className={
-                        'sidebar has-background-white' +
+                        'sidebar has-background-white no-print' +
                         (this.props.state.rootReducers.openDrawer ? ' sidebar--open' : '')
                     }
                     ref={this.sidebarRef}
