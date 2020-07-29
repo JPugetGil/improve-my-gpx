@@ -74,14 +74,14 @@ $spacing-directions: (
 $spacing-horizontal: 'x';
 $spacing-vertical: 'y';
 $spacing-values: (
-    'auto': auto,
-    '0': 0,
-    '1': 0.25rem,
-    '2': 0.5rem,
-    '3': 0.75rem,
-    '4': 1rem,
-    '5': 1.5rem,
     '6': 3rem,
+    '5': 1.5rem,
+    '4': 1rem,
+    '3': 0.75rem,
+    '2': 0.5rem,
+    '1': 0.25rem,
+    '0': 0,
+    'auto': auto,
 );
 
 @each $property, $shortcut in $spacing-shortcuts {
