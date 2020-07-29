@@ -95,32 +95,33 @@ class Sidebar extends React.Component {
                         </Menu.List>
                     </Menu>
 
-                    <Container className="mx-0 mt-auto px-4 py-4">
-                        <Columns breakpoint="mobile" className="is-vcentered">
-                            <Columns.Column narrow>
-                                <Dropdown
-                                    className="dropdown__language"
-                                    up={true}
-                                    onChange={(language) => this.handleChangeLanguage(language)}
-                                    label={this.currentLanguage.label}
-                                    value={this.language}
-                                >
-                                    {Object.keys(i18n.services.resourceStore.data).map((language, index) => (
-                                        <Dropdown.Item value={language} key={index}>
-                                            {i18n.getDataByLanguage(language).label}
-                                        </Dropdown.Item>
-                                    ))}
-                                </Dropdown>
-                            </Columns.Column>
-                            <Columns.Column>
-                                <Box>
+                    <Dropdown
+                        className="dropdown__language mt-auto mx-4 py-4 pt-2"
+                        up={true}
+                        onChange={(language) => this.handleChangeLanguage(language)}
+                        label={this.currentLanguage.label}
+                        value={this.language}
+                    >
+                        {Object.keys(i18n.services.resourceStore.data).map((language, index) => (
+                            <Dropdown.Item value={language} key={index}>
+                                {i18n.getDataByLanguage(language).label}
+                            </Dropdown.Item>
+                        ))}
+                    </Dropdown>
+                    <Box className="mt-0 mx-4 my-4">
+                        <Container>
+                            <Columns breakpoint="mobile">
+                                <Columns.Column>
                                     <p>GIL Jérôme</p>
                                     <p>PEYROT Thomas</p>
+                                </Columns.Column>
+                                <Columns.Column>
                                     <p>SCRIVEN Anthony</p>
-                                </Box>
-                            </Columns.Column>
-                        </Columns>
-                    </Container>
+                                    <p>DERRAR Marvin</p>
+                                </Columns.Column>
+                            </Columns>
+                        </Container>
+                    </Box>
                 </div>
             </Fragment>
         );
