@@ -3,7 +3,7 @@ import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
-import { Button, Columns, Container, Dropdown, Heading, Image, Menu } from 'react-bulma-components';
+import { Box, Button, Columns, Container, Dropdown, Heading, Image, Menu } from 'react-bulma-components';
 import i18n from '../../i18n';
 import Utils from '../../assets/utils';
 
@@ -27,7 +27,7 @@ class Sidebar extends React.Component {
         document.addEventListener('mousedown', this.handleClick, false);
         setTimeout(() => {
             this.sidebarRef.current.querySelector('.sidebar__toggle').classList.remove('sidebar__toggle--hidden');
-        }, 2000);
+        }, 1000);
     }
 
     componentWillUnmount() {
@@ -50,7 +50,10 @@ class Sidebar extends React.Component {
         return (
             <Fragment>
                 <div
-                    className={'sidebar has-background-white' + (this.props.state.rootReducers.openDrawer ? ' sidebar--open' : '')}
+                    className={
+                        'sidebar has-background-white no-print' +
+                        (this.props.state.rootReducers.openDrawer ? ' sidebar--open' : '')
+                    }
                     ref={this.sidebarRef}
                 >
                     <Button
@@ -61,7 +64,7 @@ class Sidebar extends React.Component {
                         <FontAwesomeIcon icon="arrow-right" />
                     </Button>
 
-                    <Container className="logo">
+                    <Container className="logo mx-0 my-0 px-4 py-4">
                         <Columns breakpoint="mobile" className="is-vcentered">
                             <Columns.Column narrow>
                                 <Image src={logo} size={64} />
@@ -93,7 +96,7 @@ class Sidebar extends React.Component {
                     </Menu>
 
                     <Dropdown
-                        className="dropdown__language"
+                        className="dropdown__language mt-auto mx-4 py-4 pt-2"
                         up={true}
                         onChange={(language) => this.handleChangeLanguage(language)}
                         label={this.currentLanguage.label}
@@ -105,6 +108,20 @@ class Sidebar extends React.Component {
                             </Dropdown.Item>
                         ))}
                     </Dropdown>
+                    <Box className="mt-0 mx-4 my-4">
+                        <Container>
+                            <Columns breakpoint="mobile">
+                                <Columns.Column>
+                                    <p>GIL Jérôme</p>
+                                    <p>PEYROT Thomas</p>
+                                </Columns.Column>
+                                <Columns.Column>
+                                    <p>SCRIVEN Anthony</p>
+                                    <p>DERRAR Marvin</p>
+                                </Columns.Column>
+                            </Columns>
+                        </Container>
+                    </Box>
                 </div>
             </Fragment>
         );

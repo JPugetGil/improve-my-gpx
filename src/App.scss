@@ -1,38 +1,110 @@
 .App {
-  text-align: center;
+    text-align: center;
 }
 
 .App-logo {
-  height: 40vmin;
-  pointer-events: none;
+    height: 40vmin;
+    pointer-events: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+    .App-logo {
+        animation: App-logo-spin infinite 20s linear;
+    }
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
 }
 
 .App-link {
-  color: #61dafb;
+    color: #61dafb;
 }
 
 @keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media print {
+
+    // Print page in landscape and hide header and footer
+    @page {
+        size: landscape;
+        margin: 0mm;
+    }
+
+    // Hide unwanted elements
+    .no-print,
+    .leaflet-control {
+        display: none !important;
+    }
+}
+
+// Bulma helpers
+.is-marginless {
+    margin: 0 !important;
+}
+
+.is-paddingless {
+    padding: 0 !important;
+}
+
+$spacing-shortcuts: (
+    'margin': 'm',
+    'padding': 'p',
+);
+$spacing-directions: (
+    'top': 't',
+    'right': 'r',
+    'bottom': 'b',
+    'left': 'l',
+);
+$spacing-horizontal: 'x';
+$spacing-vertical: 'y';
+$spacing-values: (
+    '6': 3rem,
+    '5': 1.5rem,
+    '4': 1rem,
+    '3': 0.75rem,
+    '2': 0.5rem,
+    '1': 0.25rem,
+    '0': 0,
+    'auto': auto,
+);
+
+@each $property, $shortcut in $spacing-shortcuts {
+    @each $name, $value in $spacing-values {
+        // Cardinal directions
+        @each $direction, $suffix in $spacing-directions {
+            .#{$shortcut}#{$suffix}-#{$name} {
+                #{$property}-#{$direction}: $value !important;
+            }
+        }
+        // Horizontal axis
+        @if $spacing-horizontal != null {
+            .#{$shortcut}#{$spacing-horizontal}-#{$name} {
+                #{$property}-left: $value !important;
+                #{$property}-right: $value !important;
+            }
+        }
+        // Vertical axis
+        @if $spacing-vertical != null {
+            .#{$shortcut}#{$spacing-vertical}-#{$name} {
+                #{$property}-top: $value !important;
+                #{$property}-bottom: $value !important;
+            }
+        }
+    }
 }

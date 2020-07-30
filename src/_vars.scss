@@ -1,7 +1,9 @@
 @import "../node_modules/bulma/sass/utilities/initial-variables.sass";
 
 $breakpoints: (
-    'mobile': 480px,
+    'phone': 0px,
     'tablet': $tablet - 1px,
     'desktop': $desktop,
+    'widescreen': $widescreen,
+    'fullhd': $fullhd,
 );
