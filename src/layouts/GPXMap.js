@@ -14,8 +14,8 @@ class GPXMap extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      ...props.mapState.mapReducers,
-      ...props.mapState.mapReducers.map
+      ...props.mapState.mapReducers.mapModeReducer,
+      ...props.mapState.mapReducers.mapModeReducer.map
     }
   }
 
@@ -32,7 +32,7 @@ class GPXMap extends React.Component {
 
   render () {
     const position = [this.state.lat, this.state.lng]
-    const state = this.props.mapState.mapReducers
+    const state = this.props.mapState.mapReducers.mapModeReducer
     const { t } = this.props
 
     const markers = [
