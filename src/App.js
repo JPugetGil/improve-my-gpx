@@ -9,14 +9,10 @@ import icons from './fontLibrary'
 import Loading from './layouts/Loading'
 
 const Page404 = React.lazy(() => import('./layouts/Page404'))
-// import {toggleSidebar} from './actions/appAction' // Import needed actions here
 
 library.add(...icons)
 
 function App (props) {
-    /*const changeDrawer = () => {
-        props.dispatch(toggleSidebar()); // call the action
-    };*/
 
     return (
         <Router>
@@ -32,7 +28,7 @@ function App (props) {
             {
                 routes.findIndex((route) => route.path === props.state.router.location.pathname) < 0 ?
                     (
-                        <Suspense fallback={'LOADING...'}>
+                        <Suspense fallback={<Loading/>}>
                             <Route component={Page404}/>
                         </Suspense>
                     ) : null
