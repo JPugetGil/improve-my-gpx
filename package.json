@@ -7,7 +7,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.12.1",
     "@fortawesome/react-fontawesome": "^0.1.8",
     "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.4.0",
+    "@testing-library/react": "^11.0.4",
     "@testing-library/user-event": "^7.2.1",
     "bulma": "0.9.1",
     "connected-react-router": "^6.8.0",
