@@ -48,7 +48,7 @@
   },
   "devDependencies": {
     "@fortawesome/free-brands-svg-icons": "^5.12.1",
-    "i18next": "^19.4.2",
+    "i18next": "^20.3.4",
     "i18next-browser-languagedetector": "^6.0.1",
     "i18next-xhr-backend": "^3.2.2"
   }
